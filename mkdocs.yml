@@ -5,3 +5,5 @@ theme: flatly
 pages:
 - ['index.md', 'Home']
 - ['delete-service.md', 'Guide', 'Delete a Service']
+- ['ambari-shell.md', 'Guide', 'Use Ambari Shell']
+- ['ambari-docker.md', 'Guide', 'Run Ambari as Docker Container']
