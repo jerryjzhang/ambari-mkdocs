@@ -1,0 +1,7 @@
+site_name: AmbariDocs
+theme: flatly
+#theme: readable
+#theme: readthedocs
+pages:
+- ['index.md', 'Home']
+- ['delete-service.md', 'Guide', 'Delete a Service']
