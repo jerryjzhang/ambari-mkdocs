@@ -1,6 +1,6 @@
 ## 如何连接ambari-server的postgres数据库
 
-docker run -it --rm docker.oa.com:8080/docker/postgres sh -c 'exec psql -h "10.149.27.95" -p "5432" -U ambari'
+	docker run -it --rm docker.oa.com:8080/docker/postgres sh -c 'exec psql -h "10.149.27.95" -p "5432" -U ambari'
 
 其中：
 
