@@ -7,4 +7,5 @@ pages:
 - ['delete-service.md', 'Guide', 'Delete a Service']
 - ['ambari-shell.md', 'Guide', 'Use Ambari Shell']
 - ['ambari-docker.md', 'Guide', 'Run Ambari as Docker Container']
+- ['ambari-database.md'], 'Guide', 'Connect to Server Database']
 - ['question-set.md', 'Questions']

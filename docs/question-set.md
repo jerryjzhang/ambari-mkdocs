@@ -4,7 +4,7 @@
 
 - Admin界面的文字提示：ambari-admin/src/main/resources/ui/admin-web/app/views文件夹下的所有HTML文件
 
-- 选择服务的描述文字：
+- 选择服务的描述文字：ambari-server/src/main/resources/stacks/HDP/*/services下的每个metainfo.xml文件
 
 ### 为何偶尔出现在前台停止服务后，过会又自动启动的情况？
 
