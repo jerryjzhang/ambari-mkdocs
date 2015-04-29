@@ -3,24 +3,30 @@
 
 ## Resource
 
-- Service: HDFS, YARN, HBase, etc
+一个Service由多个ServiceComponent构成，一个ServiceComponent由多个ServiceComponentHost构成：
 
-- ServiceComponent: HDFS.NameNode, YARN.ResourceManager, HBase.RegionServer, etc
+- **Service**: HDFS, YARN, HBase, etc
 
-- ServiceComponentHost: HDFS.NameNode.HostA, YARN.ResourceManager.HostB
+- **ServiceComponent**: HDFS.NameNode, YARN.ResourceManager, HBase.RegionServer, etc
 
-一个Service由多个ServiceComponent构成，一个ServiceComponent由多个ServiceComponentHost构成。
+- **ServiceComponentHost**: HDFS.NameNode.HostA, YARN.ResourceManager.HostB
 
 ## 术语
 
-- Operation: Service层面的操作(Install/Start/Stop/Config)
+一次Operation包含的Stage遵照StagePlan顺序执行，一个Stage包含的Task可以并行执行：
 
-- Stage: ServicesComponents层面的操作
+- **Operation**: Service层面的操作(Install/Start/Stop/Config)
 
-- StagePlan: 规划一次operation的stage顺序
+- **Stage**: ServicesComponents层面的操作
 
-- Action: 执行态的stage
+- **StagePlan**: 规划一次operation的stage顺序
 
-- Task/Request: ServiceComponentHosts层面的操作
+- **Action**: 执行态的stage
 
-一次Operation包含的Stage遵照StagePlan顺序执行，一个Stage包含的Task可以并行执行。
+- **Task/Request**: ServiceComponentHosts层面的操作
+
+# 架构
+
+![Architecture][1]
+
+  [1]: ../images/ambari-arch.png

@@ -8,4 +8,5 @@ pages:
 - ['ambari-shell.md', 'Guide', 'Use Ambari Shell']
 - ['ambari-docker.md', 'Guide', 'Run Ambari as Docker Container']
 - ['ambari-database.md', 'Guide', 'Connect to Server Database']
+- ['ambari-design.md', 'Design']
 - ['question-set.md', 'Questions']
