@@ -1,4 +1,4 @@
-## 如何使用Dockerr容器启动Ambari Server
+## 如何使用Docker容器启动Ambari Server
 
 运行命令：
 
