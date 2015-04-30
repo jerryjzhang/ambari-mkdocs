@@ -17,8 +17,12 @@ Ambari will send emails when your attention is needed (e.g., a node goes down, r
 
 ## References
 
-AmbariWiki: https://cwiki.apache.org/confluence/display/AMBARI/Ambari/
+[AmbariWiki](https://cwiki.apache.org/confluence/display/AMBARI/Ambari/)
 
-SVN地址：http://tc-svn.tencent.com/doss/doss_tbds_rep/tbds_proj/trunk/ambari
+[Ambari 2.0 Release Note](http://docs.hortonworks.com/HDPDocuments/Ambari-2.0.0.0/Amb_Rel_Notes/ARN_v200.html)
 
-TAPD项目：http://tapd.oa.com/TDW/prong/iterations/view/1010028181000423067#tab=StoryandTask
+[Ambari 2.0 Documentation](http://docs.hortonworks.com/HDPDocuments/Ambari-2.0.0.0/index.html)
+
+[SVN地址](http://tc-svn.tencent.com/doss/doss_tbds_rep/tbds_proj/trunk/ambari)
+
+[TAPD项目](http://tapd.oa.com/TDW/prong/iterations/view/1010028181000423067#tab=StoryandTask)
