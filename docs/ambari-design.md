@@ -29,4 +29,4 @@
 
 ![Architecture][1]
 
-  [1]: ../images/ambari-arch.png
+  [1]: ../img/ambari-arch.png
