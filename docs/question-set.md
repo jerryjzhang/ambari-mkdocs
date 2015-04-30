@@ -12,13 +12,13 @@ Server会定期调用服务脚本的STATUS命令，如果返回结果是OK，Ser
 
 **用户请求停止服务组件:**
 
-AmbariManagementControllerImpl:2175 - Received a updateHostComponent request, clusterName=tdw, serviceNa
-me=LHOTSE, componentName=RUNNER_SLAVE, hostname=10.149.27.91, request={ clusterName=tdw, serviceName=LHOTSE, componentName=RUNNER_SLAVE, host
-name=10.149.27.91, desiredState=INSTALLED, desiredStackId=null, staleConfig=null, adminState=null}
+	AmbariManagementControllerImpl:2175 - Received a updateHostComponent request, clusterName=tdw, serviceNa
+	me=LHOTSE, componentName=RUNNER_SLAVE, hostname=10.149.27.91, request={ clusterName=tdw, serviceName=LHOTSE, componentName=RUNNER_SLAVE, host
+	name=10.149.27.91, desiredState=INSTALLED, desiredStackId=null, staleConfig=null, adminState=null}
 
 **服务组件重新被设置成STARTED状态:**
 
-HeartBeatHandler:464 - State of service component RUNNER_SLAVE of service LHOTSE of cluster tdw has changed from INSTALLED to STARTED at host 10.149.27.91
+	HeartBeatHandler:464 - State of service component RUNNER_SLAVE of service LHOTSE of cluster tdw has changed from INSTALLED to STARTED at host 10.149.27.91
 
 ### 为何会前台经常出现服务需要重启的提示？
 
