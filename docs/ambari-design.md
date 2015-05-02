@@ -1,9 +1,9 @@
 
 # Ambari总体设计
 
-## 核心概念
+## 抽象
 
-### Resource
+### 资源
 
 一个Service由多个ServiceComponent构成，一个ServiceComponent由多个ServiceComponentHost构成：
 
@@ -11,25 +11,41 @@
 
 - **ServiceComponent**: HDFS.NameNode, YARN.ResourceManager, HBase.RegionServer, etc
 
-- **ServiceComponentHost**: HDFS.NameNode.HostA, YARN.ResourceManager.HostB
+- **ServiceComponentHost**: HDFS.NameNode.HostA, YARN.ResourceManager.HostB, etc
 
-### Operation
+### 操作
 
-一次Operation包含的Stage遵照StagePlan顺序执行，一个Stage包含的Task可以并行执行：
+操作抽象有三个，分别对应于上述的三种资源：
 
-- **Operation**: Service层面的操作(Install/Start/Stop/Config)
+- **Operation**: Service层面的操作(Install/Start/Stop/Config)——一个Operation可以作用于一个或多个Service。
 
-- **Stage**: ServicesComponents层面的操作
+- **Task**: ServiceComponentHosts层面的操作——为了完成一个Operation，需要为不同的机器分配一系列的Task去执行。
 
-- **StagePlan**: 规划一次operation的stage顺序
+- **Stage**: ServicesComponents层面的操作——根据不同ServicesComponents操作间的依赖关系，一个Operation的所有Task可能被划分成多个Stage，一个Stage内的多个Task相互没有依赖，可以并行执行。
 
-- **Action**: 执行态的stage
+```	
+注意：不同的Stage只能顺序执行，同一个Stage内的多个Task可以并行执行，但是分配给同一个机器的Task只能顺序执行。
+```
 
-- **Task/Request**: ServiceComponentHosts层面的操作
+下图描述了这三种资源与操作的对应关系：
 
 ![Abstraction][1]
 
   [1]: ../img/ambari-concepts.png
+
+上述的三个操作抽象是定义态的描述，它们分别对应一个执行态的抽象：
+
+- **StagePlan**: 执行态的Operation，是一个Stage DAG。
+
+- **Command:** 执行态的Task，下发给具体的机器执行。
+
+- **Action**: 执行态的Stage，由多个Command构成。
+
+下图通过一个具体实例（启动HDFS和YARN服务），展示了其Stage DAG的构建逻辑：
+
+![StagePlan][6]
+
+  [6]: ../img/ambari-stageplan.png
 
 ## 架构
 
@@ -39,26 +55,84 @@
 
 ### Metainfo
 
-HDP服务的元数据通过如下几类文件来定义：
+HDP服务的元数据可以通过一系列的文件来描述：
 
-- **metainfo.xml:** 服务定义，包括服务名称、各个组件的定义、YUM安装包名、管控脚本路径等
+- **metainfo.xml:** 服务定义，包括服务名称、各个组件的定义、YUM安装包名、管控脚本路径等。
 
-- **metrics.xml:** 定义服务需要收集的指标
+- **role_command_order.json:** 定义不同操作间的顺序依赖，用于构建Stage DAG。
 
-- **scripts:** 包含服务的管控脚本
+- **metrics.xml:** 定义服务需要收集的指标。
 
-- **configuration:** 包含服务的配置文件，所有配置项按统一的property格式加载
+除此之外，服务操作的执行需要定义一些运行环境，约定定义在如下几个文件夹：
 
-- **templates:** 包含自定义的模板文件
+- **scripts:** 包含服务操作的执行脚本。
 
-- **files:** 包含自定义的任意文件
+- **configuration:** 包含服务的配置文件。
 
-scripts、templates以及files文件夹包含的所有文件将被server打包，下发给agent用于执行操作。
+- **templates:** 包含自定义的模板文件。
+
+- **files:** 包含自定义的任意文件。
+
+以上文件夹包含的所有文件将被Server打成运行包，下发给Agent用于执行服务操作。
 
 ### Database State
+
+	Current State + Action State = Desired State
 
 - **Current State**: clusterstate, hostcomponentstate, hoststate
 
 - **Desired State**: servicedesiredstate, servicecomponentdesiredstate, hostcomponentdesiredstate, 
 
-- **Action State**: host_role_command, execution_command
+- **Action State**: request, stage, host_role_command, execution_command
+
+### Server主要组件
+
+- **APIServer:** jetty server，对外提供REST资源操作API。
+
+- **HeartbeatServer:** jetty server，对内agent提供心跳API。
+
+- **MetainfoManager:** 读取和缓存服务的元数据。
+
+- **ClusterController**: 统筹地处理资源操作请求。
+
+- **ResourceProvider:** 实现资源的CRUD操作，每种资源对应一个ResourceProvider。
+
+- **PropertyProvider:** 向资源对象里添加各种property，主要是alert和metric两种。
+
+- **StageBuilder:** 根据服务的元数据(比如由哪些组件构成、依赖哪些其他服务等)，构建Stage DAG，并生成每个Stage内的Task。
+
+- **ActionQueue:** 缓存待执行的Stage。
+
+### Agent主要组件
+
+- **Controller:** 与Server端交互：通过heartbeat定期发送status report给server；从heartbeat返回中获取Command并分发出去。
+
+- **ActionQueue:** 缓存待执行的Command。
+
+- **CustomServiceOrchestrator:** 编排Commands的执行，包括获取脚本路径、构建脚本参数等。
+
+- **PythonExecutor:** 执行python脚本。
+
+- **CommandStatusDict:** 缓存脚本执行的状态。
+
+## 工作流
+
+### Server工作流
+
+**变更操作**
+
+![Server-Update-Workflow][3]
+
+  [3]: ../img/server-update-workflow.png
+
+**查询操作**
+
+![Server-Get-Workflow][4]
+
+  [4]: ../img/server-get-workflow.png
+
+### Agent工作流
+
+![Agent-Workflow][5]
+
+  [5]: ../img/agent-workflow.png
