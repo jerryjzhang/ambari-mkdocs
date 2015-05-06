@@ -8,7 +8,7 @@
 
 ### 为何偶尔出现在前台停止服务后，过会又自动启动的情况？
 
-Server会定期调用服务脚本的STATUS命令，如果返回结果是OK，Server端会认为服务组件处于STARTED状态。观察以下日志佐证：
+Server会定期(默认周期1分钟)调用服务脚本的STATUS命令，如果返回结果是OK，Server端会认为服务组件处于STARTED状态。观察以下日志佐证：
 
 **用户请求停止服务组件:**
 
@@ -29,3 +29,13 @@ Server会定期调用服务脚本的STATUS命令，如果返回结果是OK，Ser
 - 每次新增/移除一个ServiceComponentHost，如果其所属的服务有restartRequiredAfterChange属性(在metaInfo.xml定义)，需要把其master组件重启。
 
 - 每次修改服务的配置，保存后会出现重启提示。
+
+### Server端的服务运行包是在何时通过什么机制同步到Agent端的？
+
+1. Server每次启动时会将所有服务的package文件夹内容(包括scripts,templates,files)打成archive.zip，同时package下生成一个hash文件。
+
+2. Agent执行某个服务操作时，如果发现updateToDate列表里没有该服务，则会检查本地缓存的运行包hash与Server端的hash进行比较，如果不匹配，则从Server端下载archive.zip，然后将服务添加进updateToDate列表里。
+
+3. 每次Agent重新向Server注册时，会将updateToDate清空。
+
+因此，如果改动了Server端的某个文件，想要同步到Agent端，需要重启Server，但不必要重启Agent（Agent会重新向Server注册）。

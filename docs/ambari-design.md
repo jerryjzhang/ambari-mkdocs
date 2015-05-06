@@ -59,21 +59,23 @@ HDP服务的元数据可以通过一系列的文件来描述：
 
 - **metainfo.xml:** 服务定义，包括服务名称、各个组件的定义、YUM安装包名、管控脚本路径等。
 
-- **role_command_order.json:** 定义不同操作间的顺序依赖，用于构建Stage DAG。
+- **role_command_order.json:** 定义不同服务组件操作间的顺序依赖，用于构建Stage DAG。
 
 - **metrics.xml:** 定义服务需要收集的指标。
 
 除此之外，服务操作的执行需要定义一些运行环境，约定定义在如下几个文件夹：
 
-- **scripts:** 包含服务操作的执行脚本。
+- **package/scripts:** 包含服务操作的执行脚本。
 
-- **configuration:** 包含服务的配置文件。
+- **package/templates:** 包含自定义的模板文件。
 
-- **templates:** 包含自定义的模板文件。
+- **package/files:** 包含自定义的任意文件。
 
-- **files:** 包含自定义的任意文件。
+- **configuration:** 包含服务的配置文件。这里的配置文件不会直接以文件形式下发到Agent，而是由Server解析为一个个的k/v property，在向Agent下发Command时，将这些k/v附加在其中。
 
-以上文件夹包含的所有文件将被Server打成运行包，下发给Agent用于执行服务操作。
+```
+说明：以上package下的所有文件夹将被Server打成运行包archive.zip，下发给Agent用于执行服务操作。
+```
 
 ### Database State
 
@@ -85,7 +87,7 @@ HDP服务的元数据可以通过一系列的文件来描述：
 
 - **Action State**: request, stage, host_role_command, execution_command
 
-### Server主要组件
+### Server主要模块
 
 - **APIServer:** jetty server，对外提供REST资源操作API。
 
@@ -103,7 +105,7 @@ HDP服务的元数据可以通过一系列的文件来描述：
 
 - **ActionQueue:** 缓存待执行的Stage。
 
-### Agent主要组件
+### Agent主要模块
 
 - **Controller:** 与Server端交互：通过heartbeat定期发送status report给server；从heartbeat返回中获取Command并分发出去。
 
