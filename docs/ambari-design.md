@@ -44,13 +44,13 @@
 
 - **Command:** 执行态的Task，下发给具体的机器执行。主要有以下几种：
   
-	- **ExecuteCommand:** 执行INSTALL/START/STOP等。
+	- **ExecuteCommand:** 对服务组件执行INSTALL/START/STOP等操作。
 
-	- **StatusCommand:** 执行组件死活检查。
+	- **StatusCommand:** 对服务组件执行死活检查（由Server定期下发）。
 
-	- **CancelCommand:** 当stage中的某个task失败时，需要取消其他已经下发的task。
+	- **CancelCommand:** 取消其他已经下发的Task（当Stage中的某个Task失败时）。
 
-	- **RegistrationCommand:** 要求Agent向Server重新注册。
+	- **RegistrationCommand:** 要求Agent向Server重新注册（当发现Server维护的心跳序号与Agent上报的不一致时）。
 
 - **Action**: 执行态的Stage，由多个Command构成。
 
@@ -136,13 +136,13 @@ HDP服务的元数据可以通过一系列的文件来描述：
 
 ### Server工作流
 
-**变更操作**
+**资源变更操作**
 
 ![Server-Update-Workflow][3]
 
   [3]: ../img/server-update-workflow.png
 
-**查询操作**
+**资源查询操作**
 
 ![Server-Get-Workflow][4]
 
@@ -153,3 +153,15 @@ HDP服务的元数据可以通过一系列的文件来描述：
 ![Agent-Workflow][5]
 
   [5]: ../img/agent-workflow.png
+
+### 监控告警工作流
+
+![Alert-Workflow][7]
+
+  [7]: ../img/alert-workflow.png
+
+### 指标收集工作流
+
+![Metric-Workflow][8]
+
+  [8]: ../img/metric-workflow.png
