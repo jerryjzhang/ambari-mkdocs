@@ -84,7 +84,7 @@ HDP服务的元数据可以通过一系列的文件来描述：
 
 - **package/files:** 包含自定义的任意文件。
 
-- **configuration:** 包含服务的配置文件。这里的配置文件不会直接以文件形式下发到Agent，而是由Server解析为一个个的k/v property，在向Agent下发Command时，将这些k/v附加在其中。
+- **configuration:** 包含服务的配置文件。这里的配置文件**不会直接以文件形式下发到Agent**，而是由Server解析为一个个的k/v，在向Agent下发Command时，将这些k/v附加在其中，最终由服务脚本来根据k/v生成配置文件(或者其他自定义的配置形式)。
 
 ```
 说明：以上package下的所有文件夹将被Server打成运行包archive.zip，下发给Agent用于执行服务操作。
