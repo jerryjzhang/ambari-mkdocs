@@ -23,8 +23,13 @@
 
 - **Stage**: ServicesComponents层面的操作——根据不同ServicesComponents操作间的依赖关系，一个Operation的所有Task可能被划分成多个Stage，一个Stage内的多个Task相互没有依赖，可以并行执行。
 
-```	
-注意：不同的Stage只能顺序执行，同一个Stage内的多个Task可以并行执行，但是分配给同一个机器的Task只能顺序执行。
+```
+需要特别说明操作的执行顺序：
+1. 不同的Stage只能顺序执行。后面的Stage只有在前面Stage执行成功后才会下发给Agent。如果前面Stage失败，后面的Stage将取消。
+
+2. 同一个Stage内的多个Task可以并行执行，可以同时下发给Agent。如果某个Task失败，其他的已下发且正执行的Task将被取消。
+
+3. 分配给同一个机器的不同Task只会顺序执行。
 ```
 
 下图描述了这三种资源与操作的对应关系：
@@ -37,7 +42,15 @@
 
 - **StagePlan**: 执行态的Operation，是一个Stage DAG。
 
-- **Command:** 执行态的Task，下发给具体的机器执行。
+- **Command:** 执行态的Task，下发给具体的机器执行。主要有以下几种：
+  
+	- **ExecuteCommand:** 执行INSTALL/START/STOP等。
+
+	- **StatusCommand:** 执行组件死活检查。
+
+	- **CancelCommand:** 当stage中的某个task失败时，需要取消其他已经下发的task。
+
+	- **RegistrationCommand:** 要求Agent向Server重新注册。
 
 - **Action**: 执行态的Stage，由多个Command构成。
 
@@ -65,7 +78,7 @@ HDP服务的元数据可以通过一系列的文件来描述：
 
 除此之外，服务操作的执行需要定义一些运行环境，约定定义在如下几个文件夹：
 
-- **package/scripts:** 包含服务操作的执行脚本。
+- **package/scripts:** 包含服务操作的执行脚本（需要继承Script类，重载install/start/stop等方法）。
 
 - **package/templates:** 包含自定义的模板文件。
 
@@ -97,6 +110,8 @@ HDP服务的元数据可以通过一系列的文件来描述：
 
 - **ClusterController**: 统筹地处理资源操作请求。
 
+- **ClusterFSM:** 集群状态机，在内存中维护各个资源的状态信息。
+ 
 - **ResourceProvider:** 实现资源的CRUD操作，每种资源对应一个ResourceProvider。
 
 - **PropertyProvider:** 向资源对象里添加各种property，主要是alert和metric两种。
