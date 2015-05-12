@@ -8,6 +8,10 @@
 
 	/data/home/docker_common/jerryjzhang/ambari-build/start-build.sh <ambari-sourceDir>
 
+### 转换源文件格式
+
+	find <ambari-sourceDir> -type f -exec dos2unix {} \;
+
 ### Maven编译 - 1.7.0
 
 	mvn versions:set -DnewVersion=1.7.0.0
