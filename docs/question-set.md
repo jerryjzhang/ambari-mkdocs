@@ -24,11 +24,11 @@ Server会定期(默认周期1分钟)调用服务脚本的STATUS命令，如果�
 
 以下几种情况下会出现重启提示：
 
-- 每次新增/移除一个ServiceComponentHost，都需要将所有monitringService的master组件和对应机器上的slave组件重启。是否是monitoringService可以在服务的metaInfo.xml中定义。目前只有nagios和ganglia属于此类。
+- 每次新增/移除一个ServiceComponentHost，都需要将所有monitringService的master组件和对应机器上的slave组件重启。是否是monitoringService可以在服务的metaInfo.xml中定义。**目前只有nagios和ganglia属于此类。**
 
-- 每次移除一个ServiceComponentHost，如果其所属的服务有restartRequiredAfterChange属性(在metaInfo.xml定义)，需要把其master组件重启。目前只有zookeeper和kafka属于此类。
+- 每次移除一个ServiceComponentHost，如果其所属的服务有restartRequiredAfterChange属性(在metaInfo.xml定义)，需要把其master组件重启。**目前只有zookeeper和kafka属于此类。**
 
-- 每次更新某个配置，如果其配置类型(configType)是服务或组件依赖的(在metainfo.xml中通过configuration-dependencies配置)，则服务或组件需要重启。注：对于global这个特殊的configType，只有当其中的key被服务定义过，才会触发该服务重启。目前只有HDFS/YARN/MAPREDUCE2共有core-site配置类型。
+- 每次更新某个配置，如果其配置类型(configType)是服务或组件依赖的(在metainfo.xml中通过configuration-dependencies配置)，则服务或组件需要重启。注：对于global这个特殊的configType，只有当其中的key被服务定义过，才会触发该服务重启。**目前只有HDFS/YARN/MAPREDUCE2共同依赖core-site配置类型。**
 
 ### Server端的服务运行包是在何时通过什么机制同步到Agent端的？
 
