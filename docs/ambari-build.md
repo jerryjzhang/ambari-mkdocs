@@ -15,7 +15,7 @@
 ### Maven编译 - 1.7.0
 
 	mvn versions:set -DnewVersion=1.7.0.0
-	mvn install package rpm:rpm -DskipTests -DnewVersion=1.7.0.0 -Dpython.ver="python >= 2.6"
+	mvn install rpm:rpm -Dfindbugs.skip -DskipTests -Drat.skip -Dmaven.test.skip -Dassembly.skipAssembly  -DnewVersion=1.7.0.0 -Dpython.ver="python >= 2.6"
 
 ### Maven编译 - 2.0.0
 
@@ -23,7 +23,7 @@
 	pushd ambari-metrics
 	mvn versions:set -DnewVersion=2.0.0.0
 	popd
-	mvn install package rpm:rpm -DskipTests -DnewVersion=2.0.0.0 -Dpython.ver="python >= 2.6"
+	mvn install package rpm:rpm -Dfindbugs.skip -DskipTests -Drat.skip -Dmaven.test.skip -Dassembly.skipAssembly -DnewVersion=2.0.0.0 -Dpython.ver="python >= 2.6"
 
 ## 附录
 
