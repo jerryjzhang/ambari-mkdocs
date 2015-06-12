@@ -11,3 +11,4 @@ pages:
 - ['ambari-build.md', 'Guide', 'Build Ambari From Source']
 - ['ambari-design.md', 'Design']
 - ['question-set.md', 'Questions']
+- ['ambari-code-distribution.md', 'Source']
