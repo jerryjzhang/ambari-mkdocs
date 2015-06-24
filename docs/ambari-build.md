@@ -10,7 +10,7 @@
 
 ### 转换源文件格式
 
-	find <ambari-sourceDir> -type f -exec dos2unix {} \;
+	for i in `find <sourceBaseDir> -type f -name "*ambari*" -or -name "*.py" -or -name "*.sh" -or -name "*.java" |grep -v .git | grep -v target |grep -v jar|grep -v png`;do dos2unix $i; done
 
 ### Maven编译 - 1.7.0
 
