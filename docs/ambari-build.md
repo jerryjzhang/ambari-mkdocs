@@ -25,6 +25,11 @@
 	popd
 	mvn install rpm:rpm -Dfindbugs.skip -DskipTests -Drat.skip -Dmaven.test.skip -DskipAssembly -DnewVersion=2.0.0.0 -Dpython.ver="python >= 2.6"
 
+### 单个项目编译
+
+	mvn install rpm:rpm -pl ambari-agent -Dfindbugs.skip -DskipTests -Drat.skip -Dmaven.test.skip -DskipAssembly -DnewVersion=2.0.0.0 -Dpython.ver="python >= 2.6"
+
+
 ## 附录
 
 ### 容器启动脚本内容
