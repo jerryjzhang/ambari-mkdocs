@@ -7,6 +7,7 @@ pages:
 - ['delete-service.md', 'Guide', 'Delete a Service']
 - ['ambari-shell.md', 'Guide', 'Use Ambari Shell']
 - ['ambari-docker.md', 'Guide', 'Run Ambari as Docker Container']
+- ['ambari-docker-cluster.md', 'Guide', 'Install TDP Cluster']
 - ['ambari-database.md', 'Guide', 'Connect to Server Database']
 - ['ambari-build.md', 'Guide', 'Build Ambari From Source']
 - ['ambari-design.md', 'Design']
