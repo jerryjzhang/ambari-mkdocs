@@ -27,3 +27,9 @@
 ```
    /data/home/docker_common/jerryjzhang/ambari-cluster/startMin.sh
 ```
+
+3. 等待启动命令返回后，访问套件界面
+
+```
+	http://10.151.140.110:8080
+```
