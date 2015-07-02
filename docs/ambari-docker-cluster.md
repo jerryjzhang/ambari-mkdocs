@@ -10,26 +10,32 @@
 
 ### 如何使用
 
-1. 登陆服务器
+- 登陆服务器
 
 ```
 	ssh docker_common@10.151.140.110
 ```
 
-2. 启动TDP集群，安装所有服务
+- 启动TDP集群，安装所有服务
 
 ```
 	/data/home/docker_common/jerryjzhang/ambari-cluster/startTDPUpgrade.sh
 ```
 
-   启动TDP集群，只安装Metrics服务
+- 启动TDP集群，只安装Metrics服务
 
 ```
    /data/home/docker_common/jerryjzhang/ambari-cluster/startMin.sh
 ```
 
-3. 等待启动命令返回后，访问套件界面
+- 等待启动命令返回后，访问套件界面
 
 ```
 	http://10.151.140.110:8080
+```
+
+- 卸载集群
+
+```
+	stopCluster.sh
 ```
