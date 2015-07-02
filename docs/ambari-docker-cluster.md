@@ -10,13 +10,9 @@
 
 ### 实现
 
-- 集群搭建
+- 集群搭建: 将Ambari打包成一个Docker镜像，基于该镜像启动三个容器，一个容器同时启动Ambari Server和Ambari Agent，另外两个只启动Agent。三个容器通过Pipework指定同网段的IP来组网。
 
-将Ambari打包成一个Docker镜像，基于该镜像启动三个容器，一个容器同时启动Ambari Server和Ambari Agent，另外两个只启动Agent。三个容器通过Pipework指定同网段的IP来组网。
-
-- 安装服务
-
-编写Ambari Blueprint，声明需要安装哪些服务组件。再用Ambari Shell向Ambari Server提交Blueprint，实现自动安装与启动服务。
+- 安装服务: 编写Ambari Blueprint，声明需要安装哪些服务组件。再用Ambari Shell向Ambari Server提交Blueprint，实现自动安装与启动服务。
 
 ### 如何使用
 
