@@ -25,13 +25,13 @@
 - 启动TDP集群，安装所有服务
 
 ```
-	/data/home/docker_common/jerryjzhang/ambari-cluster/startTDPUpgrade.sh
+	/data/home/docker_common/jerryjzhang/ambari-cluster/startTDP.sh upgrade
 ```
 
 - 启动TDP集群，只安装Metrics服务
 
 ```
-   /data/home/docker_common/jerryjzhang/ambari-cluster/startMin.sh
+   /data/home/docker_common/jerryjzhang/ambari-cluster/startMin.sh upgrade
 ```
 
 - 等待启动命令返回后，访问套件界面
