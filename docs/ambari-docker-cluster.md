@@ -25,13 +25,13 @@
 - 启动TDP集群，安装所有服务
 
 ```
-	/data/home/docker_common/jerryjzhang/ambari-cluster/startTDP.sh upgrade
+	/data/home/docker_common/jerryjzhang/ambari-cluster/startTDPUpgrade.sh
 ```
 
 - 启动TDP集群，只安装Metrics服务
 
 ```
-   /data/home/docker_common/jerryjzhang/ambari-cluster/startMin.sh upgrade
+   /data/home/docker_common/jerryjzhang/ambari-cluster/startTDPUpgrade.sh min
 ```
 
 - 等待启动命令返回后，访问套件界面
@@ -40,8 +40,16 @@
 	http://10.151.140.110:8080
 ```
 
+- 访问集群机器
+
+```
+	docker exec -it ambari /bin/bash
+	docker exec -it node-1 /bin/bash
+	docker exec -it node-2 /bin/bash
+```
+
 - 卸载集群
 
 ```
-	stopCluster.sh
+	/data/home/docker_common/jerryjzhang/ambari-cluster/stopCluster.sh
 ```
