@@ -4,6 +4,7 @@ theme: flatly
 #theme: readthedocs
 pages:
 - ['index.md', 'Home']
+- ['ambari-license.md', 'Guide', 'Generate License Key']
 - ['delete-service.md', 'Guide', 'Delete a Service']
 - ['ambari-shell.md', 'Guide', 'Use Ambari Shell']
 - ['ambari-docker.md', 'Guide', 'Run Ambari as Docker Container']
